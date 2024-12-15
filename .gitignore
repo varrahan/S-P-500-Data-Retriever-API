@@ -1,0 +1,10 @@
+# Environment variables
+*.env*
+
+# Folders
+*__pycache__*
+*venv*
+
+# Output files and folders
+*.csv
+/mongodb_stock_data*
