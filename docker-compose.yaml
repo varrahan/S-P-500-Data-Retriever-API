@@ -1,0 +1,32 @@
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    hostname: mongodb
+    ports:
+     - "${MONGO_PORT}:${MONGO_PORT}"
+    networks:
+     - app_network
+    volumes:
+      - mongodb_stock_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PWD}
+  app:
+    container_name: fintech-container
+    image: data-scraper
+    ports:
+      - "${HOST_PORT}:${CONTAINER_PORT}"
+    env_file:
+      - .env
+    networks:
+      - app_network
+    depends_on:
+      - mongodb
+
+volumes:
+  mongodb_stock_data:
+
+networks:
+  app_network:
+    driver: bridge
