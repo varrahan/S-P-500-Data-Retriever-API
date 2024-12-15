@@ -27,6 +27,7 @@ class DatabaseService():
             collection: Collection = DATABASE[company]
             # Iterate and return all documents from the collection as a list of JSONs
             for document in collection.find():
+                document['_id'] = str(document['_id'])
                 documents.append(document)
         except Exception as ex:
             logger.exception(f'Error has occured with the get_collection_data function in the DataConversionService: {ex}')
